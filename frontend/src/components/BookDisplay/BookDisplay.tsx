@@ -1,5 +1,5 @@
-import { Book } from "@frontend/src/models/Book";
-import "./BookDisplay.css";
+import { Book } from '@frontend/src/models/Book';
+import './BookDisplay.css';
 
 export default function BookDisplay({ volumeInfo }: Book) {
   return (
@@ -12,14 +12,14 @@ export default function BookDisplay({ volumeInfo }: Book) {
         src={
           volumeInfo.imageLinks?.thumbnail
             ? volumeInfo.imageLinks.thumbnail
-            : "src\\assets\\coverNotFound.png"
+            : 'src\\assets\\coverNotFound.png'
         }
       />
       <h3 className="book-info">
-        {volumeInfo.pageCount ? `Pages: ${volumeInfo.pageCount}` : ""}
+        {volumeInfo.pageCount ? `Pages: ${volumeInfo.pageCount}` : ''}
       </h3>
       <h3 className="book-info">
-        {volumeInfo.authors ? `Author: ${volumeInfo.authors}` : ""}
+        {volumeInfo.authors ? `Author: ${volumeInfo.authors}` : ''}
       </h3>
     </div>
   );

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Book } from "./models/Book";
-import getByTitle from "./services/BookService";
-import BookDisplay from "./components/BookDisplay/BookDisplay";
-import "./index.css";
-import SearchForm from "./components/SearchForm/SearchForm";
+import React, { useState } from 'react';
+import { Book } from './models/Book';
+import getByTitle from './services/BookService';
+import BookDisplay from './components/BookDisplay/BookDisplay';
+import './index.css';
+import SearchForm from './components/SearchForm/SearchForm';
 
 function App() {
   const [books, setBooks] = useState<Book[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -19,7 +19,7 @@ function App() {
       const response = await getByTitle(inputValue);
       setBooks(response.data.items);
     } catch (error) {
-      console.error("Error fetching books:", error);
+      console.error('Error fetching books:', error);
     }
   };
 

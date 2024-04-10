@@ -1,4 +1,4 @@
-import "./SearchForm.css";
+import './SearchForm.css';
 
 interface FuncProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
