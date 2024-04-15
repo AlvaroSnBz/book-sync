@@ -1,7 +1,8 @@
-import { Book } from '@frontend/src/models/Book';
-import './BookDisplay.css';
+import { Volume } from '@frontend/src/models/Volume';
+import '@frontend/src/components/BookDisplay/BookDisplay.css';
+import BookStatusDropdown from '../BookStatusDropdown/BookStatusDropdown';
 
-export default function BookDisplay({ volumeInfo }: Book) {
+export default function BookDisplay({ id, volumeInfo }: Volume) {
   return (
     <div>
       <h2 className="book-title">{volumeInfo.title}</h2>
@@ -10,9 +11,7 @@ export default function BookDisplay({ volumeInfo }: Book) {
         alt="Cover not found"
         width="179px"
         src={
-          volumeInfo.imageLinks?.thumbnail
-            ? volumeInfo.imageLinks.thumbnail
-            : 'src\\assets\\coverNotFound.png'
+          volumeInfo.imageLinks?.thumbnail || 'src\\assets\\coverNotFound.png'
         }
       />
       <h3 className="book-info">
@@ -21,6 +20,7 @@ export default function BookDisplay({ volumeInfo }: Book) {
       <h3 className="book-info">
         {volumeInfo.authors ? `Author: ${volumeInfo.authors}` : ''}
       </h3>
+      <BookStatusDropdown id={id} />
     </div>
   );
 }

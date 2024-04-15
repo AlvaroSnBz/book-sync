@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Book } from './models/Book';
+import { Volume } from './models/Volume';
 import getByTitle from './services/BookService';
 import BookDisplay from './components/BookDisplay/BookDisplay';
 import './index.css';
 import SearchForm from './components/SearchForm/SearchForm';
 
 function App() {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Volume[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
