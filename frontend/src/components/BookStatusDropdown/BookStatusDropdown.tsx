@@ -1,9 +1,10 @@
 import { Book, BookStatus } from '@backend/src/models/Book';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './BookStatusDropdown.css';
 
 export default function BookStatusDropdown({ id }: { id: string }) {
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [bookStatus, setBookStatus] = useState<BookStatus | null>(null);
 
@@ -22,6 +23,23 @@ export default function BookStatusDropdown({ id }: { id: string }) {
       console.error('Error al actualizar el estado del libro:', error);
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
 
   useEffect(() => {
     const fetchBookStatus = async () => {
@@ -46,7 +64,7 @@ export default function BookStatusDropdown({ id }: { id: string }) {
   };
 
   return (
-    <div className="dropdown">
+    <div className="dropdown" ref={dropdownRef}>
       <button
         className="dropdown-toggle"
         type="button"
