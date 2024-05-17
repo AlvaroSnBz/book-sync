@@ -24,6 +24,19 @@ export default function BookStatusDropdown({ id }: { id: string }) {
     }
   };
 
+  const deleteBookStatus = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/book/deleteBookStatus?id=${id}`,
+        {}
+      );
+      console.log('Estado borrado');
+      setBookStatus(null);
+    } catch (error) {
+      console.error('Error al borrar el estado del libro:', error);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -72,6 +85,19 @@ export default function BookStatusDropdown({ id }: { id: string }) {
       >
         {bookStatus || 'Select an option'}
       </button>
+      {bookStatus != null && (
+        <button
+          type="button"
+          className="delete-button"
+          onClick={deleteBookStatus}
+        >
+          <img
+            className="delete-icon"
+            src="src\\assets\\delete.png"
+            alt="delete icon"
+          />
+        </button>
+      )}
       {isOpen && (
         <div className="dropdown-menu">
           {Object.values(BookStatus).map((option) => (
@@ -91,3 +117,4 @@ export default function BookStatusDropdown({ id }: { id: string }) {
     </div>
   );
 }
+// https://www.flaticon.com/authors/feen

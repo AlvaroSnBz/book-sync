@@ -30,3 +30,12 @@
 .dropdown-item:hover {
   background-color: #f0f0f0;
 }
+
+.delete-button {
+  cursor: pointer;
+}
+
+.delete-icon {
+  width: 25px;
+  height: 24px;
+}
