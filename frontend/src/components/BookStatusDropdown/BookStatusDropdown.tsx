@@ -78,26 +78,28 @@ export default function BookStatusDropdown({ id }: { id: string }) {
 
   return (
     <div className="dropdown" ref={dropdownRef}>
-      <button
-        className="dropdown-toggle"
-        type="button"
-        onClick={toggleDropdown}
-      >
-        {bookStatus || 'Select an option'}
-      </button>
-      {bookStatus != null && (
+      <div className="button-container">
         <button
+          className="dropdown-toggle"
           type="button"
-          className="delete-button"
-          onClick={deleteBookStatus}
+          onClick={toggleDropdown}
         >
-          <img
-            className="delete-icon"
-            src="src\\assets\\delete.png"
-            alt="delete icon"
-          />
+          {bookStatus || 'Select an option'}
         </button>
-      )}
+        {bookStatus != null && (
+          <button
+            type="button"
+            className="delete-button"
+            onClick={deleteBookStatus}
+          >
+            <img
+              className="delete-icon"
+              src="src\\assets\\delete.png"
+              alt="delete icon"
+            />
+          </button>
+        )}
+      </div>
       {isOpen && (
         <div className="dropdown-menu">
           {Object.values(BookStatus).map((option) => (

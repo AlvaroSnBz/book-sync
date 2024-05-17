@@ -33,9 +33,19 @@
 
 .delete-button {
   cursor: pointer;
+  margin: 0 10px;
+  background-color: #a8b5d7;
+  border: 1px solid #ece6e6;
 }
 
 .delete-icon {
-  width: 25px;
-  height: 24px;
+  width: 30px;
+  height: 28px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
 }
