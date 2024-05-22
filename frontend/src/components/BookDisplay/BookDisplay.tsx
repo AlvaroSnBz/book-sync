@@ -1,4 +1,4 @@
-import { Volume } from '@frontend/src/models/Volume';
+import { Volume } from '@backend/src/models/Volume';
 import '@frontend/src/components/BookDisplay/BookDisplay.css';
 import BookStatusDropdown from '../BookStatusDropdown/BookStatusDropdown';
 
@@ -20,7 +20,7 @@ export default function BookDisplay({ id, volumeInfo }: Volume) {
       <h3 className="book-info">
         {volumeInfo.authors ? `Author: ${volumeInfo.authors}` : ''}
       </h3>
-      <BookStatusDropdown id={id} />
+      <BookStatusDropdown id={id} volumeInfo={volumeInfo} status={undefined} />
     </div>
   );
 }

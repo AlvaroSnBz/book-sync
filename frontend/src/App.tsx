@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume } from './models/Volume';
+import { Volume } from '@backend/src/models/Volume';
 import getByTitle from './services/BookService';
 import BookDisplay from './components/BookDisplay/BookDisplay';
 import './index.css';
@@ -42,6 +42,7 @@ function App() {
               key={book.id}
               id={book.id}
               volumeInfo={book.volumeInfo}
+              status={undefined}
             />
           ))}
       </ul>

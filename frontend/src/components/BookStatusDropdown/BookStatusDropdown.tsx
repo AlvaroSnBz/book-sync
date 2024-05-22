@@ -1,12 +1,14 @@
-import { Book, BookStatus } from '@backend/src/models/Book';
+import { BookStatus, Volume } from '@backend/src/models/Volume';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import './BookStatusDropdown.css';
 
-export default function BookStatusDropdown({ id }: { id: string }) {
+export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [bookStatus, setBookStatus] = useState<BookStatus | null>(null);
+  const [bookStatus, setBookStatus] = useState<BookStatus | undefined>(
+    undefined
+  );
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -16,6 +18,7 @@ export default function BookStatusDropdown({ id }: { id: string }) {
     try {
       await axios.post('http://localhost:3000/book/setBookStatus', {
         id,
+        volumeInfo,
         status,
       });
       console.log('Estado actualizado');
@@ -31,7 +34,7 @@ export default function BookStatusDropdown({ id }: { id: string }) {
         {}
       );
       console.log('Estado borrado');
-      setBookStatus(null);
+      setBookStatus(undefined);
     } catch (error) {
       console.error('Error al borrar el estado del libro:', error);
     }
@@ -57,7 +60,7 @@ export default function BookStatusDropdown({ id }: { id: string }) {
   useEffect(() => {
     const fetchBookStatus = async () => {
       try {
-        const response = await axios.get<Book>(
+        const response = await axios.get<Volume>(
           `http://localhost:3000/book/getBook?id=${id}`
         );
         if (response.data != null) {
