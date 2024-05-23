@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Volume } from '@backend/src/models/Volume';
 import getByTitle from './services/BookService';
 import BookDisplay from './components/BookDisplay/BookDisplay';
@@ -8,6 +9,22 @@ import SearchForm from './components/SearchForm/SearchForm';
 function App() {
   const [books, setBooks] = useState<Volume[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
+
+  useEffect(() => {
+    const fetchBookStatus = async () => {
+      try {
+        if (!inputValue.trim()) {
+          const response = await axios.get<Volume[]>(
+            `http://localhost:3000/book/getBooks`
+          );
+          setBooks(response.data);
+        }
+      } catch (error) {
+        console.error('Error al obtener el estado del libro:', error);
+      }
+    };
+    fetchBookStatus();
+  }, [inputValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
