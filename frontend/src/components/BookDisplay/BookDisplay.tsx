@@ -2,25 +2,35 @@ import { Volume } from '@backend/src/models/Volume';
 import '@frontend/src/components/BookDisplay/BookDisplay.css';
 import BookStatusDropdown from '../BookStatusDropdown/BookStatusDropdown';
 
-export default function BookDisplay({ id, volumeInfo }: Volume) {
+interface BookDisplayProps {
+  volume: Volume;
+  removeBook: (id: string) => void;
+}
+
+export default function BookDisplay({ volume, removeBook }: BookDisplayProps) {
   return (
     <div>
-      <h2 className="book-title">{volumeInfo.title}</h2>
+      <h2 className="book-title">{volume.volumeInfo.title}</h2>
       <img
         className="book-cover"
         alt="Cover not found"
         width="179px"
         src={
-          volumeInfo.imageLinks?.thumbnail || 'src\\assets\\coverNotFound.png'
+          volume.volumeInfo.imageLinks?.thumbnail ||
+          'src\\assets\\coverNotFound.png'
         }
       />
       <h3 className="book-info">
-        {volumeInfo.pageCount ? `Pages: ${volumeInfo.pageCount}` : ''}
+        {volume.volumeInfo.pageCount
+          ? `Pages: ${volume.volumeInfo.pageCount}`
+          : ''}
       </h3>
       <h3 className="book-info">
-        {volumeInfo.authors ? `Author: ${volumeInfo.authors}` : ''}
+        {volume.volumeInfo.authors
+          ? `Author: ${volume.volumeInfo.authors}`
+          : ''}
       </h3>
-      <BookStatusDropdown id={id} volumeInfo={volumeInfo} status={undefined} />
+      <BookStatusDropdown volume={volume} removeBook={removeBook} />
     </div>
   );
 }

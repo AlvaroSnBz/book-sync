@@ -3,7 +3,15 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import './BookStatusDropdown.css';
 
-export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
+interface BookStatusDropdownProps {
+  volume: Volume;
+  removeBook: (id: string) => void;
+}
+
+export default function BookStatusDropdown({
+  volume,
+  removeBook,
+}: BookStatusDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [bookStatus, setBookStatus] = useState<BookStatus | undefined>(
@@ -17,8 +25,8 @@ export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
   const updateBookStatus = async (status: string) => {
     try {
       await axios.post('http://localhost:3000/book/setBookStatus', {
-        id,
-        volumeInfo,
+        id: volume.id,
+        volumeInfo: volume.volumeInfo,
         status,
       });
       console.log('Estado actualizado');
@@ -30,11 +38,12 @@ export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
   const deleteBookStatus = async () => {
     try {
       await axios.delete(
-        `http://localhost:3000/book/deleteBookStatus?id=${id}`,
+        `http://localhost:3000/book/deleteBookStatus?id=${volume.id}`,
         {}
       );
       console.log('Estado borrado');
       setBookStatus(undefined);
+      removeBook(volume.id);
     } catch (error) {
       console.error('Error al borrar el estado del libro:', error);
     }
@@ -61,7 +70,7 @@ export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
     const fetchBookStatus = async () => {
       try {
         const response = await axios.get<Volume>(
-          `http://localhost:3000/book/getBook?id=${id}`
+          `http://localhost:3000/book/getBook?id=${volume.id}`
         );
         if (response.data != null) {
           setBookStatus(response.data.status);
@@ -71,7 +80,7 @@ export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
       }
     };
     fetchBookStatus();
-  }, [id]);
+  }, [volume.id]);
 
   const handleOptionSelect = async (newStatus: BookStatus) => {
     setBookStatus(newStatus);
@@ -107,7 +116,7 @@ export default function BookStatusDropdown({ id, volumeInfo }: Volume) {
         <div className="dropdown-menu">
           {Object.values(BookStatus).map((option) => (
             <div
-              key={option + id}
+              key={option + volume.id}
               className="dropdown-item"
               onClick={() => handleOptionSelect(option)}
               onKeyDown={() => handleOptionSelect(option)}

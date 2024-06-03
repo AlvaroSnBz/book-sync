@@ -40,6 +40,12 @@ function App() {
     }
   };
 
+  const removeBook = (id: string) => {
+    if (!inputValue.trim()) {
+      setBooks(books.filter((book) => book.id !== id));
+    }
+  };
+
   return (
     <div>
       <SearchForm
@@ -55,12 +61,7 @@ function App() {
               book.volumeInfo.pageCount !== undefined
           )
           .map((book) => (
-            <BookDisplay
-              key={book.id}
-              id={book.id}
-              volumeInfo={book.volumeInfo}
-              status={undefined}
-            />
+            <BookDisplay key={book.id} volume={book} removeBook={removeBook} />
           ))}
       </ul>
     </div>
