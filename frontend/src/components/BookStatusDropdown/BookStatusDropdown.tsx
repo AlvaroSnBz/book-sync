@@ -1,7 +1,8 @@
 import { BookStatus, Volume } from '@backend/src/models/Volume';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
-import './BookStatusDropdown.css';
+import styles from './BookStatusDropdown.module.css';
+import trashImage from '../../../assets/delete.png';
 
 interface BookStatusDropdownProps {
   volume: Volume;
@@ -24,7 +25,7 @@ export default function BookStatusDropdown({
 
   const updateBookStatus = async (status: string) => {
     try {
-      await axios.post('http://localhost:3000/book/setBookStatus', {
+      await axios.post('/book/setBookStatus', {
         id: volume.id,
         volumeInfo: volume.volumeInfo,
         status,
@@ -37,10 +38,7 @@ export default function BookStatusDropdown({
 
   const deleteBookStatus = async () => {
     try {
-      await axios.delete(
-        `http://localhost:3000/book/deleteBookStatus?id=${volume.id}`,
-        {}
-      );
+      await axios.delete(`/book/deleteBookStatus?id=${volume.id}`, {});
       console.log('Estado borrado');
       setBookStatus(undefined);
       removeBook(volume.id);
@@ -70,7 +68,7 @@ export default function BookStatusDropdown({
     const fetchBookStatus = async () => {
       try {
         const response = await axios.get<Volume>(
-          `http://localhost:3000/book/getBook?id=${volume.id}`
+          `/book/getBook?id=${volume.id}`
         );
         if (response.data != null) {
           setBookStatus(response.data.status);
@@ -89,10 +87,10 @@ export default function BookStatusDropdown({
   };
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
-      <div className="button-container">
+    <div className={styles.dropdown} ref={dropdownRef}>
+      <div className={styles.buttonContainer}>
         <button
-          className="dropdown-toggle"
+          className={styles.dropdownToggle}
           type="button"
           onClick={toggleDropdown}
         >
@@ -101,23 +99,23 @@ export default function BookStatusDropdown({
         {bookStatus != null && (
           <button
             type="button"
-            className="delete-button"
+            className={styles.deleteButton}
             onClick={deleteBookStatus}
           >
             <img
-              className="delete-icon"
-              src="src\\assets\\delete.png"
+              className={styles.deleteIcon}
+              src={trashImage}
               alt="delete icon"
             />
           </button>
         )}
       </div>
       {isOpen && (
-        <div className="dropdown-menu">
+        <div className={styles.dropdownMenu}>
           {Object.values(BookStatus).map((option) => (
             <div
               key={option + volume.id}
-              className="dropdown-item"
+              className={styles.dropdownItem}
               onClick={() => handleOptionSelect(option)}
               onKeyDown={() => handleOptionSelect(option)}
               role="button"

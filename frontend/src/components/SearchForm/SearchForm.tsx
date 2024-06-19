@@ -1,4 +1,4 @@
-import './SearchForm.css';
+import styles from './SearchForm.module.css';
 
 interface FuncProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
@@ -6,18 +6,18 @@ interface FuncProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function BookDisplay(funcProps: FuncProps) {
+export default function SearchForm(funcProps: FuncProps) {
   const { handleSubmit, inputValue, handleChange } = funcProps;
   return (
     <form onSubmit={handleSubmit}>
-      <div className="form-div">
+      <div className={styles.formDiv}>
         <input
-          className="search-input"
+          className={styles.searchInput}
           type="text"
           value={inputValue}
           onChange={handleChange}
         />
-        <button className="submit-button" type="submit">
+        <button className={styles.submitButton} type="submit">
           Search
         </button>
       </div>

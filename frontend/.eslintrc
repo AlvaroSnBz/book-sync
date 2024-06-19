@@ -23,6 +23,7 @@
 		"prettier"
 	],
 	"rules": {
+		"jsx-a11y/label-has-associated-control": "off",
 		"react/react-in-jsx-scope": "off",
 		"prettier/prettier": [
 			"error",

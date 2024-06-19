@@ -1,0 +1,14 @@
+.form-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-input {
+    height: 30px;
+  }
+  
+  .submit-button {
+    height: 25px;
+    margin-left: 20px;
+  }

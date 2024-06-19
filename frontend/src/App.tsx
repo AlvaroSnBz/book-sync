@@ -5,18 +5,18 @@ import getByTitle from './services/BookService';
 import BookDisplay from './components/BookDisplay/BookDisplay';
 import './index.css';
 import SearchForm from './components/SearchForm/SearchForm';
+import Login from './components/Login/Login';
 
 function App() {
   const [books, setBooks] = useState<Volume[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
+  const [isLogged, setIsLogged] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBookStatus = async () => {
       try {
         if (!inputValue.trim()) {
-          const response = await axios.get<Volume[]>(
-            `http://localhost:3000/book/getBooks`
-          );
+          const response = await axios.get<Volume[]>(`/book/getBooks`);
           setBooks(response.data);
         }
       } catch (error) {
@@ -46,24 +46,38 @@ function App() {
     }
   };
 
+  const handleIsLogged = (option: boolean) => {
+    setIsLogged(option);
+  };
+
   return (
     <div>
-      <SearchForm
-        handleSubmit={handleSubmit}
-        inputValue={inputValue}
-        handleChange={handleChange}
-      />
-      <ul>
-        {books
-          .filter(
-            (book) =>
-              book.volumeInfo.authors?.length > 0 &&
-              book.volumeInfo.pageCount !== undefined
-          )
-          .map((book) => (
-            <BookDisplay key={book.id} volume={book} removeBook={removeBook} />
-          ))}
-      </ul>
+      <h1>{isLogged}</h1>
+      {isLogged === false && <Login setIsLogged={handleIsLogged} />}
+      {isLogged === true && (
+        <div>
+          <SearchForm
+            handleSubmit={handleSubmit}
+            inputValue={inputValue}
+            handleChange={handleChange}
+          />
+          <ul>
+            {books
+              .filter(
+                (book) =>
+                  book.volumeInfo.authors?.length > 0 &&
+                  book.volumeInfo.pageCount !== undefined
+              )
+              .map((book) => (
+                <BookDisplay
+                  key={book.id}
+                  volume={book}
+                  removeBook={removeBook}
+                />
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
