@@ -24,6 +24,9 @@ export default function LoginComponent({ setIsLogged }: LoginProps) {
         password: hashPassword(password),
       });
       setIsLogged(response.data);
+      if (response.data) {
+        localStorage.setItem('username', username);
+      }
     } catch (error) {
       console.error('Error logging in', error);
     }

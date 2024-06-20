@@ -24,11 +24,13 @@ export default function BookStatusDropdown({
   };
 
   const updateBookStatus = async (status: string) => {
+    const username = localStorage.getItem('username');
     try {
       await axios.post('/book/setBookStatus', {
         id: volume.id,
         volumeInfo: volume.volumeInfo,
         status,
+        username,
       });
       console.log('Estado actualizado');
     } catch (error) {

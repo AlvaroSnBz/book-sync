@@ -15,8 +15,13 @@ function App() {
   useEffect(() => {
     const fetchBookStatus = async () => {
       try {
-        if (!inputValue.trim()) {
-          const response = await axios.get<Volume[]>(`/book/getBooks`);
+        if (!inputValue.trim() && isLogged) {
+          const username = localStorage.getItem('username');
+          const response = await axios.get<Volume[]>(`/book/getBooks`, {
+            params: {
+              username,
+            },
+          });
           setBooks(response.data);
         }
       } catch (error) {
@@ -24,7 +29,7 @@ function App() {
       }
     };
     fetchBookStatus();
-  }, [inputValue]);
+  }, [inputValue, isLogged]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
