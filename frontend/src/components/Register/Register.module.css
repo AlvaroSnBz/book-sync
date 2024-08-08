@@ -6,7 +6,7 @@
   height: 90vh;
 }
 
-.login-container {
+.register-container {
   background-color: #8198b5;
   padding: 20px;
   border-radius: 8px;
@@ -34,7 +34,7 @@
   border-radius: 4px;
 }
 
-.login-button {
+.register-button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -46,12 +46,12 @@
   margin-top: 10px;
 }
 
-.login-register-button {
+.error-div {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #275f8c;
-  color: white;
+  background-color: #e2e261;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 10px;
 }
