@@ -35,15 +35,15 @@
 
 
 <div align="center"> 
-  <img src="https://github.com/AlvaroSnBz/book-sync/blob/main/BookSyncPhotos/login.png" alt="screenshot" />
+  <img src="https://github.com/AlvaroSnBz/book-sync/blob/main/BookSyncPhotos/register.png" alt="register-screenshot" />
 </div>
 </br>
 <div align="center"> 
-  <img src="https://github.com/AlvaroSnBz/book-sync/blob/main/BookSyncPhotos/main-menu.png" alt="screenshot" />
+  <img src="https://github.com/AlvaroSnBz/book-sync/blob/main/BookSyncPhotos/main-menu.png" alt="main-menu-screenshot" />
 </div>
 </br>
 <div align="center"> 
-  <img src="https://github.com/AlvaroSnBz/book-sync/blob/main/BookSyncPhotos/dropdown.png" alt="screenshot" />
+  <img src="https://github.com/AlvaroSnBz/book-sync/blob/main/BookSyncPhotos/dropdown.png" alt="dropdown-screenshot" />
 </div>
 
 
