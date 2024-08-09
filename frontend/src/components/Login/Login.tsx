@@ -40,15 +40,6 @@ export default function LoginComponent({ setIsLogged }: LoginProps) {
 
   return (
     <div className={styles.body}>
-      <button
-        className={styles.loginRegisterButton}
-        type="submit"
-        onClick={toggleRegisterComponent}
-      >
-        {showRegisterComponent
-          ? 'Have an account? Log in'
-          : 'Dont have an account? Register'}
-      </button>
       {showRegisterComponent ? (
         <Register />
       ) : (
@@ -76,6 +67,15 @@ export default function LoginComponent({ setIsLogged }: LoginProps) {
           </form>
         </div>
       )}
+      <button
+        className={styles.loginRegisterButton}
+        type="submit"
+        onClick={toggleRegisterComponent}
+      >
+        {showRegisterComponent
+          ? 'Have an account? Log in'
+          : 'Dont have an account? Register'}
+      </button>
     </div>
   );
 }
