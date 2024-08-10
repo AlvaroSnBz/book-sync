@@ -21,7 +21,6 @@ export default function BookDisplay({ volume, removeBook }: BookDisplayProps) {
       <img
         className={styles.bookCover}
         alt="Cover not found"
-        width="179px"
         src={transformURL(volume.volumeInfo.imageLinks?.thumbnail)}
       />
       <h3 className={styles.bookInfo}>
