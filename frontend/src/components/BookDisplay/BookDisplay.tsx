@@ -9,6 +9,12 @@ interface BookDisplayProps {
 }
 
 export default function BookDisplay({ volume, removeBook }: BookDisplayProps) {
+  const transformURL = (url: string | undefined) => {
+    if (url !== undefined) {
+      return url.replace('http', 'https');
+    }
+    return coverNotFound;
+  };
   return (
     <div>
       <h2 className={styles.bookTitle}>{volume.volumeInfo.title}</h2>
@@ -16,7 +22,7 @@ export default function BookDisplay({ volume, removeBook }: BookDisplayProps) {
         className={styles.bookCover}
         alt="Cover not found"
         width="179px"
-        src={volume.volumeInfo.imageLinks?.thumbnail || coverNotFound}
+        src={transformURL(volume.volumeInfo.imageLinks?.thumbnail)}
       />
       <h3 className={styles.bookInfo}>
         {volume.volumeInfo.pageCount
