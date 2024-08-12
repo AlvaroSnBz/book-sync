@@ -38,17 +38,19 @@ function App() {
 
   useEffect(() => {
     const getBooksByStatus = async () => {
-      try {
-        const username = localStorage.getItem('username');
-        const response = await axios.get<Volume[]>(`/book/getBooksByStatus`, {
-          params: {
-            username,
-            status: selectedStatusToFilter,
-          },
-        });
-        setBooks(response.data);
-      } catch (error) {
-        console.error('Error fetching books by status', error);
+      if (inputValue === '') {
+        try {
+          const username = localStorage.getItem('username');
+          const response = await axios.get<Volume[]>(`/book/getBooksByStatus`, {
+            params: {
+              username,
+              status: selectedStatusToFilter,
+            },
+          });
+          setBooks(response.data);
+        } catch (error) {
+          console.error('Error fetching books by status', error);
+        }
       }
     };
     getBooksByStatus();
