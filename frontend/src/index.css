@@ -4,12 +4,6 @@
 
 html {
   background-color: #37384a;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
 }
 
 ul {

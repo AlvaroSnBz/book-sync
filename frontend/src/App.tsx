@@ -6,11 +6,14 @@ import BookDisplay from './components/BookDisplay/BookDisplay';
 import './index.css';
 import SearchForm from './components/SearchForm/SearchForm';
 import Login from './components/Login/Login';
+import BookInfo from './components/BookInfo/BookInfo';
 
 function App() {
   const [books, setBooks] = useState<Volume[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [currentComponent, setCurrentComponent] = useState<string>('home');
+  const [selectedVolume, setSelectedVolume] = useState<Volume>();
   const [selectedStatusToFilter, setSelectedStatusToFilter] =
     useState<string>('');
 
@@ -34,7 +37,7 @@ function App() {
       }
     };
     getBooksByUsername();
-  }, [inputValue, isLogged]);
+  }, [inputValue, isLogged, currentComponent]);
 
   useEffect(() => {
     const getBooksByStatus = async () => {
@@ -86,11 +89,24 @@ function App() {
     setSelectedStatusToFilter(event.target.value);
   };
 
+  const changeComponent = () => {
+    let option = 'info';
+    if (currentComponent === 'info') {
+      option = 'home';
+    }
+    setCurrentComponent(option);
+  };
+
   return (
     <div>
+      {currentComponent === 'info' && (
+        <button type="button" onClick={changeComponent}>
+          Home
+        </button>
+      )}
       <h1>{isLogged}</h1>
       {isLogged === false && <Login setIsLogged={handleIsLogged} />}
-      {isLogged === true && (
+      {isLogged === true && currentComponent === 'home' && (
         <div>
           <SearchForm
             handleSubmit={handleSubmit}
@@ -126,11 +142,19 @@ function App() {
                   key={book.id}
                   volume={book}
                   removeBook={removeBook}
+                  openBookInfo={changeComponent}
+                  setSelectedBook={setSelectedVolume}
+                  option="display"
                 />
               ))}
           </ul>
         </div>
       )}
+      {isLogged === true &&
+        currentComponent === 'info' &&
+        selectedVolume !== undefined && (
+          <BookInfo volume={selectedVolume} removeBook={removeBook} />
+        )}
     </div>
   );
 }

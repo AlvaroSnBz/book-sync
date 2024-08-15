@@ -10,3 +10,10 @@
 .book-info {
   color: #a8b5d7;
 }
+
+.book-cover-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
