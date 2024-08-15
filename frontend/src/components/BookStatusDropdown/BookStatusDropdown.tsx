@@ -27,12 +27,12 @@ export default function BookStatusDropdown({
     const username = localStorage.getItem('username');
     try {
       await axios.post('/book/setBookStatus', {
+        _id: volume._id,
         id: volume.id,
         volumeInfo: volume.volumeInfo,
         status,
         username,
       });
-      console.log('Estado actualizado');
     } catch (error) {
       console.error('Error al actualizar el estado del libro:', error);
     }
@@ -40,8 +40,7 @@ export default function BookStatusDropdown({
 
   const deleteBookStatus = async () => {
     try {
-      await axios.delete(`/book/deleteBookStatus?id=${volume.id}`, {});
-      console.log('Estado borrado');
+      await axios.delete(`/book/deleteBookStatus?id=${volume._id}`);
       setBookStatus(undefined);
       removeBook(volume.id);
     } catch (error) {
@@ -68,19 +67,21 @@ export default function BookStatusDropdown({
 
   useEffect(() => {
     const fetchBookStatus = async () => {
-      try {
-        const response = await axios.get<Volume>(
-          `/book/getBook?id=${volume.id}`
-        );
-        if (response.data != null) {
-          setBookStatus(response.data.status);
+      if (volume._id != null) {
+        try {
+          const response = await axios.get<Volume>(
+            `/book/getBook?id=${volume._id}`
+          );
+          if (response.data != null) {
+            setBookStatus(response.data.status);
+          }
+        } catch (error) {
+          console.error('Error al obtener el estado del libro:', error);
         }
-      } catch (error) {
-        console.error('Error al obtener el estado del libro:', error);
       }
     };
     fetchBookStatus();
-  }, [volume.id]);
+  }, [volume._id]);
 
   const handleOptionSelect = async (newStatus: BookStatus) => {
     setBookStatus(newStatus);
