@@ -65,3 +65,14 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
+.register-complete-div {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #275f8c;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}

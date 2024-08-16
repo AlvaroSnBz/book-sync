@@ -3,14 +3,25 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import styles from './Register.module.css';
 
+type MessageType = 'Error' | 'Ok';
+
 function Register() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showErrorDiv, setShowErrorDiv] = useState(false);
+  const [messageType, setMessageType] = useState<MessageType>('Ok');
+  const [message, setMessage] = useState('');
+  const [isErrorDivVisible, setIsErrorDivVisible] = useState(false);
 
   const hashPassword = (stringToHash: string): string => {
     const hashedPassword = CryptoJS.SHA256(stringToHash);
     return hashedPassword.toString(CryptoJS.enc.Hex);
+  };
+
+  const showErrorDiv = (messageToShow: string) => {
+    setMessage(messageToShow);
+    setIsErrorDivVisible(true);
+    setTimeout(() => setIsErrorDivVisible(false), 4000);
   };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,11 +30,18 @@ function Register() {
     try {
       const createdUser = await axios.post('/login/register', {
         username,
+        email,
         password: hashPassword(password),
       });
-      if (!createdUser.data) {
-        setShowErrorDiv(true);
-        setTimeout(() => setShowErrorDiv(false), 4000);
+      if (!createdUser.data.isValid) {
+        setMessageType('Error');
+        showErrorDiv(createdUser.data.messageError);
+      } else {
+        setMessageType('Ok');
+        showErrorDiv(createdUser.data.messageError);
+        setUsername('');
+        setEmail('');
+        setPassword('');
       }
     } catch (error) {
       console.error('Error in the register', error);
@@ -33,8 +51,16 @@ function Register() {
   return (
     <div className={styles.body}>
       <div className={styles.registerContainer}>
-        {showErrorDiv && (
-          <div className={styles.errorDiv}>This username is already in use</div>
+        {isErrorDivVisible && (
+          <div
+            className={
+              messageType === 'Error'
+                ? styles.errorDiv
+                : styles.registerCompleteDiv
+            }
+          >
+            {message}
+          </div>
         )}
         <form onSubmit={handleRegister}>
           <div className={styles.inputGroup}>
@@ -43,6 +69,13 @@ function Register() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <label>Password</label>
