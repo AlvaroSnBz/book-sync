@@ -56,7 +56,7 @@ export default function BookInfo({ volume, removeBook }: BookInfoProps) {
         setSelectedBook={undefined}
       />
       <div className={styles.dateContainer}>
-        <label className={styles.dateLabel} htmlFor="date">
+        <label className={styles.label} htmlFor="date">
           Start date
         </label>
         <input
@@ -67,7 +67,7 @@ export default function BookInfo({ volume, removeBook }: BookInfoProps) {
         />
       </div>
       <div className={styles.dateContainer}>
-        <label className={styles.dateLabel} htmlFor="date">
+        <label className={styles.label} htmlFor="date">
           Finish date
         </label>
         <input
@@ -77,6 +77,12 @@ export default function BookInfo({ volume, removeBook }: BookInfoProps) {
           id="date"
         />
       </div>
+      {volume.volumeInfo.description !== undefined && (
+        <>
+          <label className={styles.label}>Description</label>
+          <p className={styles.description}>{volume.volumeInfo.description}</p>
+        </>
+      )}
     </>
   );
 }
