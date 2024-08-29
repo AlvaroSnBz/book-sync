@@ -114,19 +114,27 @@ function App() {
             handleChange={handleChange}
           />
           {inputValue === '' && (
-            <div className="form-div">
-              <h3 className="status-filter-text">Filter books by status</h3>
-              <select
-                value={selectedStatusToFilter}
-                onChange={handleStatusToFilter}
-              >
-                <option label="None" value="" />
-                {Object.values(BookStatus).map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+            <div className="status-filter-div">
+              <div className="filter-row">
+                <h3 className="status-filter-text">Filter books by status</h3>
+                <select
+                  title="Filter books by status"
+                  value={selectedStatusToFilter}
+                  onChange={handleStatusToFilter}
+                >
+                  <option label="None" value="" />
+                  {Object.values(BookStatus).map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {selectedStatusToFilter !== '' && (
+                <h3 className="status-filter-text">
+                  {books.length} books found
+                </h3>
+              )}
             </div>
           )}
 

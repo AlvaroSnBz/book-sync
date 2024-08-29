@@ -32,6 +32,16 @@ ul {
   align-items: center;
 }
 
+.status-filter-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-row {
+  display: flex; 
+  align-items: center; 
+}
+
 .status-filter-text {
   color: #a8b5d7;
   margin-right: 2vh;
