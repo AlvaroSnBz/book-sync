@@ -94,6 +94,7 @@ function App() {
     if (currentComponent === 'info') {
       option = 'home';
     }
+    window.scrollTo(0, 0);
     setCurrentComponent(option);
   };
 
